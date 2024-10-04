@@ -1,31 +1,19 @@
 import 'dart:convert';
 import 'package:either_dart/either.dart';
-import 'package:movie_app/core/error/failure.dart';
 import 'package:movie_app/features/movies/data/datasources/local/movies_datasource_decorator.dart';
 import 'package:movie_app/features/movies/data/dtos/movie_dto.dart';
 import 'package:movie_app/features/movies/domain/entities/movie_entity.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class GetMoviesLocalDataSourceDecoratorImp extends GetMoviesDataSourceDecorator {
-  GetMoviesLocalDataSourceDecoratorImp(super.getMoviesDataSource);
+class MoviesLocalDataSourceDecoratorImp extends MoviesDataSourceDecorator {
+  MoviesLocalDataSourceDecoratorImp(super.getMoviesDataSource);
 
   @override
-  Future<Either<BaseFailure, MovieEntity>> getMovieEntity() async {
-    return (await super.getMovieEntity()).fold(
-      (error) async => Right(await _getInCache()),
-      (result) {
-        _saveInCache(result);
-        return Right(result);
-      },
-    );
-  }
-
-  @override
-  Future<Either<BaseFailure, List<MovieEntity>>> getMoviesListEntity() async {
+  Future<Either<Exception, List<MovieEntity>>> getMoviesListEntity() async {
     return (await super.getMoviesListEntity()).fold(
-      (error) async => Right(await _getInCache()),
+      (error) async => Right(await _getListInCache()),
       (result) {
-        _saveInCache(result);
+        _saveInListCache(result);
         return Right(result);
       },
     );
@@ -35,7 +23,12 @@ class GetMoviesLocalDataSourceDecoratorImp extends GetMoviesDataSourceDecorator 
     var prefs = await SharedPreferences.getInstance();
     String jsonMovies = jsonEncode(movies.toJson());
     prefs.setString('movies_cache', jsonMovies);
-    print('salvou no cache ');
+  }
+
+  void _saveInListCache(List<MovieEntity> movies) async {
+    var prefs = await SharedPreferences.getInstance();
+    String jsonMovies = jsonEncode(movies.map((movie) => movie.toJson()).toList());
+    prefs.setString('movies_cache', jsonMovies);
   }
 
   Future<MovieEntity> _getInCache() async {
@@ -43,7 +36,20 @@ class GetMoviesLocalDataSourceDecoratorImp extends GetMoviesDataSourceDecorator 
     var moviesJsonString = prefs.getString('movies_cache')!;
     var json = jsonDecode(moviesJsonString);
     var movies = MovieDto.fromJson(json);
-    print('recuperou do cache os filmes ' + movies.toString());
+
     return movies;
+  }
+
+  Future<List<MovieEntity>> _getListInCache() async {
+    var prefs = await SharedPreferences.getInstance();
+    var moviesJsonString = prefs.getString('movies_cache');
+
+    if (moviesJsonString != null) {
+      var jsonList = jsonDecode(moviesJsonString) as List;
+      var movies = jsonList.map((json) => MovieDto.fromJson(json)).toList();
+
+      return movies;
+    }
+    return [];
   }
 }
