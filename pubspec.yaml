@@ -1,0 +1,30 @@
+name: movie_app
+description: "Offline Cache using the Decorator Design Pattern"
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.5.3
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.8
+  provider: ^6.1.2
+  get_it: ^8.0.0
+  either_dart: ^1.0.0
+  connectivity_plus: ^6.0.5
+  go_router: ^14.2.9
+  dio: ^5.7.0
+  shared_preferences: ^2.3.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^4.0.0
+
+flutter:
+
+  uses-material-design: true
