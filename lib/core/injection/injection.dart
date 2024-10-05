@@ -11,6 +11,7 @@ import 'package:movie_app/features/movies/data/repositories/movies_repository.da
 import 'package:movie_app/features/movies/domain/usecases/movie_usecase.dart';
 import 'package:movie_app/features/movies/domain/usecases/movies_usecase_imp.dart';
 import 'package:movie_app/features/movies/presentations/controllers/movies_controller.dart';
+import 'package:movie_app/features/movies/presentations/controllers/search_controller.dart';
 
 class Injection {
   static void init() {
@@ -32,5 +33,6 @@ class Injection {
 
     // controllers
     getIt.registerLazySingleton<MoviesController>(() => MoviesController(getIt()));
+    getIt.registerLazySingleton<SearchMoviesController>(() => SearchMoviesController(getIt()));
   }
 }

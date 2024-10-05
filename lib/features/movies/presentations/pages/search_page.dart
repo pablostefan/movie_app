@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:movie_app/features/movies/presentations/controllers/movies_controller.dart';
+import 'package:movie_app/features/movies/presentations/controllers/search_controller.dart';
 
-class MoviesPage extends StatefulWidget {
-  const MoviesPage({super.key});
+class SearchPage extends StatefulWidget {
+  const SearchPage({super.key});
 
   @override
-  State<MoviesPage> createState() => _MoviesPageState();
+  State<SearchPage> createState() => _SearchPageState();
 }
 
-class _MoviesPageState extends State<MoviesPage> {
-  final MoviesController _controller = GetIt.I.get<MoviesController>();
+class _SearchPageState extends State<SearchPage> {
+  final SearchMoviesController _controller = GetIt.I.get<SearchMoviesController>();
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +20,6 @@ class _MoviesPageState extends State<MoviesPage> {
             listenable: _controller,
             builder: (_, __) {
               return ListView.separated(
-                  controller: _controller.scrollController,
                   itemCount: _controller.movies.length,
                   separatorBuilder: (_, __) => const Divider(),
                   itemBuilder: (_, index) {
