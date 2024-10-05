@@ -1,22 +1,28 @@
 import 'dart:convert';
 import 'package:either_dart/either.dart';
 import 'package:movie_app/features/movies/data/datasources/local/movies_datasource_decorator.dart';
+import 'package:movie_app/features/movies/data/datasources/movies_datasource.dart';
 import 'package:movie_app/features/movies/data/dtos/movie_dto.dart';
 import 'package:movie_app/features/movies/domain/entities/movie_entity.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class MoviesLocalDataSourceDecoratorImp extends MoviesDataSourceDecorator {
-  MoviesLocalDataSourceDecoratorImp(super.getMoviesDataSource);
+  MoviesLocalDataSourceDecoratorImp(super.moviesDataSource);
 
   @override
-  Future<Either<Exception, List<MovieEntity>>> getMoviesListEntity() async {
-    return (await super.getMoviesListEntity()).fold(
-      (error) async => Right(await _getListInCache()),
-      (result) {
-        _saveInListCache(result);
-        return Right(result);
-      },
-    );
+  Future<Either<Exception, List<MovieEntity>>> getTrendingMovies({required int page}) async {
+    final result = await super.getTrendingMovies(page: page);
+    return result.fold((error) async => _handleError(), (movies) => _handleSuccess(movies));
+  }
+
+  Future<Either<Exception, List<MovieEntity>>> _handleError() async {
+    final cachedList = await _getListInCache();
+    return Right(cachedList);
+  }
+
+  Either<Exception, List<MovieEntity>> _handleSuccess(List<MovieEntity> movies) {
+    _saveInListCache(movies);
+    return Right(movies);
   }
 
   void _saveInCache(MovieEntity movies) async {

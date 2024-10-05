@@ -3,41 +3,38 @@ import 'package:movie_app/features/movies/domain/entities/movie_entity.dart';
 extension MovieDto on MovieEntity {
   static MovieEntity fromJson(Map json) {
     return MovieEntity(
-      averageRating: json['average_rating'] as double,
-      backdropPath: json['backdrop_path'],
-      description: json['description'],
-      id: json['id'] as int,
-      iso_3166_1: json['iso_3166_1'],
-      iso_639_1: json['iso_639_1'],
-      name: json['name'],
-      page: json['page'] as int,
-      posterPath: json['poster_path'],
-      public: json['public'] as bool,
-      revenue: json['revenue'] as int,
-      runtime: json['runtime'] as int,
-      sortBy: json['sort_by'],
-      totalPages: json['total_pages'] as int,
-      totalResults: json['total_results'] as int,
-    );
+        adult: json['adult'] as bool,
+        backdropPath: json['backdrop_path'] as String,
+        genreIds: (json['genre_ids'] as List).map((e) => e as int).toList(),
+        id: json['id'] as int,
+        originalLanguage: json['original_language'] as String,
+        originalTitle: json['original_title'] as String,
+        overview: json['overview'] as String,
+        popularity: json['popularity'] as double,
+        posterPath: json['poster_path'] as String,
+        releaseDate: json['release_date'] as String,
+        title: json['title'] as String,
+        video: json['video'] as bool,
+        voteAverage: json['vote_average'] as double,
+        voteCount: json['vote_count'] as int);
   }
 
   Map toJson() {
     return {
-      'average_rating': averageRating,
+      'adult': adult,
       'backdrop_path': backdropPath,
-      'description': description,
+      'genre_ids': genreIds,
       'id': id,
-      'iso_3166_1': iso_3166_1,
-      'iso_639_1': iso_639_1,
-      'name': name,
-      'page': page,
+      'original_language': originalLanguage,
+      'original_title': originalTitle,
+      'overview': overview,
+      'popularity': popularity,
       'poster_path': posterPath,
-      'public': public,
-      'revenue': revenue,
-      'runtime': runtime,
-      'sort_by': sortBy,
-      'total_pages': totalPages,
-      'total_results': totalResults,
+      'release_date': releaseDate,
+      'title': title,
+      'video': video,
+      'vote_average': voteAverage,
+      'vote_count': voteCount
     };
   }
 }

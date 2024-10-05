@@ -1,35 +1,33 @@
 class MovieEntity {
-  final double averageRating;
+  final bool adult;
   final String backdropPath;
-  final String description;
+  final List<int> genreIds;
   final int id;
-  final String iso_3166_1;
-  final String iso_639_1;
-  final String name;
-  final int page;
+  final String originalLanguage;
+  final String originalTitle;
+  final String overview;
+  final double popularity;
   final String posterPath;
-  final bool public;
-  final int revenue;
-  final int runtime;
-  final String sortBy;
-  final int totalPages;
-  final int totalResults;
+  final String releaseDate;
+  final String title;
+  final bool video;
+  final double voteAverage;
+  final int voteCount;
 
   MovieEntity({
-    required this.averageRating,
+    required this.adult,
     required this.backdropPath,
-    required this.description,
+    required this.genreIds,
     required this.id,
-    required this.iso_3166_1,
-    required this.iso_639_1,
-    required this.name,
-    required this.page,
+    required this.originalLanguage,
+    required this.originalTitle,
+    required this.overview,
+    required this.popularity,
     required this.posterPath,
-    required this.public,
-    required this.revenue,
-    required this.runtime,
-    required this.sortBy,
-    required this.totalPages,
-    required this.totalResults,
+    required this.releaseDate,
+    required this.title,
+    required this.video,
+    required this.voteAverage,
+    required this.voteCount,
   });
 }
