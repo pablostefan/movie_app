@@ -45,10 +45,14 @@ class NetworkFailure extends BaseFailure {
   }
 }
 
-class CacheFailure extends BaseFailure {
-  CacheFailure() : super(message: 'Cache error', stackTrace: StackTrace.current);
+class CacheDataFailure extends BaseFailure {
+  CacheDataFailure({super.stackTrace}) : super(message: 'Cache error');
+}
+
+class RemoteDataFailure extends BaseFailure {
+  RemoteDataFailure({super.stackTrace}) : super(message: 'Remote data error');
 }
 
 class ExceptionFailure extends BaseFailure {
-  ExceptionFailure() : super(message: 'An unknown error occurred', stackTrace: StackTrace.current);
+  ExceptionFailure({super.stackTrace}) : super(message: 'An unknown error occurred');
 }

@@ -1,3 +1,5 @@
+import 'package:dio/dio.dart';
+import 'package:movie_app/core/error/base_failure.dart';
 import 'package:movie_app/core/infra/http/http_service.dart';
 import 'package:movie_app/core/utils/api_utils.dart';
 import 'package:movie_app/features/movies/data/datasources/movies_datasource.dart';
@@ -15,8 +17,10 @@ class MoviesRemoteDatasourceImp extends MoviesDataSource {
       var queryParameters = {'language': 'pt-BR', 'query': query};
       var result = await _httpService.get(API.searchMovies, queryParameters: queryParameters);
       return TheMovieDbDto.fromJson(result.data);
-    } catch (e) {
-      throw Exception('Falha no remote datasource');
+    } on DioException catch (e) {
+      throw NetworkFailure.fromDioException(e);
+    } catch (e, s) {
+      throw RemoteDataFailure(stackTrace: s);
     }
   }
 
@@ -26,8 +30,10 @@ class MoviesRemoteDatasourceImp extends MoviesDataSource {
       var queryParameters = {'language': 'pt-BR'};
       var result = await _httpService.get(API.trendingMovies, queryParameters: queryParameters);
       return TheMovieDbDto.fromJson(result.data);
-    } catch (e) {
-      throw Exception('Falha no remote datasource');
+    } on DioException catch (e) {
+      throw NetworkFailure.fromDioException(e);
+    } catch (e, s) {
+      throw RemoteDataFailure(stackTrace: s);
     }
   }
 }

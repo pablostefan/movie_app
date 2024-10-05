@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-import 'package:dio/dio.dart';
 import 'package:either_dart/either.dart';
+import 'package:movie_app/core/error/base_failure.dart';
 import 'package:movie_app/features/movies/data/datasources/local/movies_datasource_decorator.dart';
 import 'package:movie_app/features/movies/data/dtos/the_movie_db_dto.dart';
 import 'package:movie_app/features/movies/domain/entities/the_movie_db_entity.dart';
@@ -14,10 +14,10 @@ class MoviesLocalDataSourceDecoratorImp extends MoviesDataSourceDecorator {
   Future<TheMovieDbEntity> getTrendingMovies({required int page}) async {
     try {
       return await super.getTrendingMovies(page: page);
-    } on DioException {
+    } on NetworkFailure {
       return await _getInCache();
-    } catch (e) {
-      throw Exception('Falha no local datasource');
+    } catch (e, s) {
+      throw CacheDataFailure(stackTrace: s);
     }
   }
 
@@ -25,10 +25,10 @@ class MoviesLocalDataSourceDecoratorImp extends MoviesDataSourceDecorator {
   Future<TheMovieDbEntity> getSearchMovies({required int page, required String query}) async {
     try {
       return await super.getSearchMovies(page: page, query: query);
-    } on DioException {
+    } on NetworkFailure {
       return await _getInCache();
-    } catch (e) {
-      throw Exception('Falha no local datasource');
+    } catch (e, s) {
+      throw CacheDataFailure(stackTrace: s);
     }
   }
 
