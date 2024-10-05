@@ -1,9 +1,8 @@
 import 'dart:convert';
+
 import 'package:either_dart/either.dart';
 import 'package:movie_app/features/movies/data/datasources/local/movies_datasource_decorator.dart';
-import 'package:movie_app/features/movies/data/dtos/movie_dto.dart';
 import 'package:movie_app/features/movies/data/dtos/the_movie_db_dto.dart';
-import 'package:movie_app/features/movies/domain/entities/movie_entity.dart';
 import 'package:movie_app/features/movies/domain/entities/the_movie_db_entity.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
