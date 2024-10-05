@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:dio/dio.dart';
 import 'package:either_dart/either.dart';
 import 'package:movie_app/features/movies/data/datasources/local/movies_datasource_decorator.dart';
 import 'package:movie_app/features/movies/data/dtos/the_movie_db_dto.dart';
@@ -10,14 +11,25 @@ class MoviesLocalDataSourceDecoratorImp extends MoviesDataSourceDecorator {
   MoviesLocalDataSourceDecoratorImp(super.moviesDataSource);
 
   @override
-  Future<Either<Exception, TheMovieDbEntity>> getTrendingMovies({required int page}) async {
-    final result = await super.getTrendingMovies(page: page);
-    return result.fold((error) async => _handleError(), (movies) => _handleSuccess(movies));
+  Future<TheMovieDbEntity> getTrendingMovies({required int page}) async {
+    try {
+      return await super.getTrendingMovies(page: page);
+    } on DioException {
+      return await _getInCache();
+    } catch (e) {
+      throw Exception('Falha no local datasource');
+    }
   }
 
-  Future<Either<Exception, TheMovieDbEntity>> _handleError() async {
-    final cachedList = await _getInCache();
-    return Right(cachedList);
+  @override
+  Future<TheMovieDbEntity> getSearchMovies({required int page, required String query}) async {
+    try {
+      return await super.getSearchMovies(page: page, query: query);
+    } on DioException {
+      return await _getInCache();
+    } catch (e) {
+      throw Exception('Falha no local datasource');
+    }
   }
 
   Either<Exception, TheMovieDbEntity> _handleSuccess(TheMovieDbEntity movies) {

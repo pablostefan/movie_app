@@ -1,4 +1,3 @@
-import 'package:either_dart/either.dart';
 import 'package:movie_app/core/infra/http/http_service.dart';
 import 'package:movie_app/core/utils/api_utils.dart';
 import 'package:movie_app/features/movies/data/datasources/movies_datasource.dart';
@@ -11,24 +10,24 @@ class MoviesRemoteDatasourceImp extends MoviesDataSource {
   MoviesRemoteDatasourceImp(this._httpService);
 
   @override
-  Future<Either<Exception, TheMovieDbEntity>> getSearchMovies({required int page, required String query}) async {
+  Future<TheMovieDbEntity> getSearchMovies({required int page, required String query}) async {
     try {
       var queryParameters = {'language': 'pt-BR', 'query': query};
       var result = await _httpService.get(API.searchMovies, queryParameters: queryParameters);
-      return Right(TheMovieDbDto.fromJson(result.data));
+      return TheMovieDbDto.fromJson(result.data);
     } catch (e) {
-      return Left(Exception('Falha no remote datasource'));
+      throw Exception('Falha no remote datasource');
     }
   }
 
   @override
-  Future<Either<Exception, TheMovieDbEntity>> getTrendingMovies({required int page}) async {
+  Future<TheMovieDbEntity> getTrendingMovies({required int page}) async {
     try {
       var queryParameters = {'language': 'pt-BR'};
       var result = await _httpService.get(API.trendingMovies, queryParameters: queryParameters);
-      return Right(TheMovieDbDto.fromJson(result.data));
+      return TheMovieDbDto.fromJson(result.data);
     } catch (e) {
-      return Left(Exception('Falha no remote datasource'));
+      throw Exception('Falha no remote datasource');
     }
   }
 }
