@@ -3,6 +3,7 @@ import 'package:movie_app/core/error/base_failure.dart';
 import 'package:movie_app/features/movies/presentations/theme/app_colors.dart';
 import 'package:movie_app/features/movies/presentations/theme/app_dimens.dart';
 import 'package:movie_app/features/movies/presentations/theme/app_opacity.dart';
+import 'package:movie_app/features/movies/presentations/theme/typography/typography.dart';
 import 'package:oktoast/oktoast.dart';
 
 class AlertWidget extends StatelessWidget {
@@ -32,7 +33,9 @@ class AlertWidget extends StatelessWidget {
                     ]),
                 child: Row(children: [
                   Icon(Icons.error, color: AppColors.monoWhite),
-                  Padding(padding: const EdgeInsets.only(left: AppDimens.nano), child: Text(error.message))
+                  Padding(
+                      padding: const EdgeInsets.only(left: AppDimens.nano),
+                      child: Text(error.message).bodySmallMedium().color(AppColors.monoWhite))
                 ]))));
   }
 }
