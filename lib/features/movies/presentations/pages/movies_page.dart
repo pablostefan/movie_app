@@ -24,7 +24,9 @@ class _MoviesPageState extends State<MoviesPage> {
                   itemCount: _controller.movies.length,
                   separatorBuilder: (_, __) => const Divider(),
                   itemBuilder: (_, index) {
-                    return ListTile(title: Text(index.toString(), style: TextStyle(color: Colors.black)));
+                    return ListTile(
+                        title: Text(_controller.movies.elementAtOrNull(index)?.title ?? "",
+                            style: TextStyle(color: Colors.black)));
                   });
             }));
   }

@@ -10,7 +10,7 @@ extension TheMovieDbDto on TheMovieDbEntity {
         totalResults: json['total_results'] as int);
   }
 
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'page': page,
       'results': results.map((e) => e.toJson()).toList(),

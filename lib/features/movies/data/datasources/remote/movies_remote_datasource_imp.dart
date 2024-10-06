@@ -12,10 +12,10 @@ class MoviesRemoteDatasourceImp extends MoviesDataSource {
   MoviesRemoteDatasourceImp(this._httpService);
 
   @override
-  Future<TheMovieDbEntity> getSearchMovies({required int page, required String query}) async {
+  Future<TheMovieDbEntity> getTrendingMovies({required int page}) async {
     try {
-      var queryParameters = {'language': 'pt-BR', 'query': query};
-      var result = await _httpService.get(API.searchMovies, queryParameters: queryParameters);
+      var queryParameters = {'language': 'pt-BR', 'page': page.toString()};
+      var result = await _httpService.get("", queryParameters: queryParameters);
       return TheMovieDbDto.fromJson(result.data);
     } on DioException catch (e) {
       throw NetworkFailure.fromDioException(e);
@@ -25,10 +25,10 @@ class MoviesRemoteDatasourceImp extends MoviesDataSource {
   }
 
   @override
-  Future<TheMovieDbEntity> getTrendingMovies({required int page}) async {
+  Future<TheMovieDbEntity> getSearchMovies({required int page, required String query}) async {
     try {
-      var queryParameters = {'language': 'pt-BR'};
-      var result = await _httpService.get(API.trendingMovies, queryParameters: queryParameters);
+      var queryParameters = {'language': 'pt-BR', 'query': query, 'page': page.toString()};
+      var result = await _httpService.get(API.searchMovies, queryParameters: queryParameters);
       return TheMovieDbDto.fromJson(result.data);
     } on DioException catch (e) {
       throw NetworkFailure.fromDioException(e);

@@ -30,4 +30,12 @@ class MovieEntity {
     required this.voteAverage,
     required this.voteCount,
   });
+
+  @override
+  bool operator ==(Object other) {
+    return other is MovieEntity && other.id == id;
+  }
+
+  @override
+  int get hashCode => id.hashCode;
 }

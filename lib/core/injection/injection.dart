@@ -2,6 +2,8 @@ import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:movie_app/core/infra/http/dio_http_service_imp.dart';
 import 'package:movie_app/core/infra/http/http_service.dart';
+import 'package:movie_app/core/infra/local_storage/local_storage_service.dart';
+import 'package:movie_app/core/infra/local_storage/shared_preferences_local_storage_service_imp.dart';
 import 'package:movie_app/core/utils/api_utils.dart';
 import 'package:movie_app/features/movies/data/datasources/local/movies_local_datasource_decorator_imp.dart';
 import 'package:movie_app/features/movies/data/datasources/movies_datasource.dart';
@@ -18,12 +20,12 @@ class Injection {
     GetIt getIt = GetIt.instance;
     // core
     getIt.registerLazySingleton<Dio>(() => Dio(BaseOptions(baseUrl: API.baseUrl, headers: API.headers)));
-
     getIt.registerLazySingleton<HttpService>(() => DioHttpServiceImp(getIt()));
+    getIt.registerLazySingleton<LocalStorageService>(() => SharedPreferencesLocalStorageService());
 
     // datasources
     getIt.registerLazySingleton<MoviesDataSource>(
-        () => MoviesLocalDataSourceDecoratorImp(MoviesRemoteDatasourceImp(getIt())));
+        () => MoviesLocalDataSourceDecoratorImp(MoviesRemoteDatasourceImp(getIt()), getIt()));
 
     // repositories
     getIt.registerLazySingleton<MoviesRepository>(() => MoviesRepositoryImp(getIt()));

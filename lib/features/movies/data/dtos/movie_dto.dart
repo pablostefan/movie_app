@@ -19,7 +19,7 @@ extension MovieDto on MovieEntity {
         voteCount: json['vote_count'] as int);
   }
 
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'adult': adult,
       'backdrop_path': backdropPath,
