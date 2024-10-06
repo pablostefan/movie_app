@@ -46,7 +46,7 @@ class NetworkFailure extends BaseFailure {
 }
 
 class CacheDataFailure extends BaseFailure {
-  CacheDataFailure({super.stackTrace}) : super(message: 'Cache error');
+  CacheDataFailure({super.stackTrace, super.message = 'Cache data error'});
 }
 
 class RemoteDataFailure extends BaseFailure {

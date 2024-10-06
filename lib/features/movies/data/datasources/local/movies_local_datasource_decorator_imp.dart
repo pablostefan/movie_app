@@ -18,7 +18,7 @@ class MoviesLocalDataSourceDecoratorImp extends MoviesDataSourceDecorator {
     } on NetworkFailure {
       return await _getInCache("trending_movies_$page");
     } catch (e, s) {
-      throw CacheDataFailure(stackTrace: s);
+      throw CacheDataFailure(message: "Não foi possível buscar os dados", stackTrace: s);
     }
   }
 
@@ -31,7 +31,7 @@ class MoviesLocalDataSourceDecoratorImp extends MoviesDataSourceDecorator {
     } on NetworkFailure {
       return await _getInCache("search_movies_$page");
     } catch (e, s) {
-      throw CacheDataFailure(stackTrace: s);
+      throw CacheDataFailure(message: "Não foi possível buscar os dados", stackTrace: s);
     }
   }
 
@@ -40,7 +40,7 @@ class MoviesLocalDataSourceDecoratorImp extends MoviesDataSourceDecorator {
       Map<String, dynamic>? data = await _localStorageService.get(key);
       return TheMovieDbDto.fromJson(data!);
     } catch (e, s) {
-      throw CacheDataFailure(stackTrace: s);
+      throw CacheDataFailure(message: "Nenhum dado disponível.", stackTrace: s);
     }
   }
 }

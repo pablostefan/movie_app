@@ -23,4 +23,10 @@ class SharedPreferencesLocalStorageService implements LocalStorageService {
     final String data = jsonEncode(value);
     return await sharedPreferences.setString(key, data);
   }
+
+  @override
+  Future<bool> clear() async {
+    final sharedPreferences = await SharedPreferences.getInstance();
+    return await sharedPreferences.clear();
+  }
 }

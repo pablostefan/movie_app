@@ -21,6 +21,6 @@ abstract class BaseRepository {
   }
 
   void _logErrorResponse(BaseFailure failure) {
-    debugPrint('[ERROR RESPONSE REPOSITORY]: ${failure.toString()}');
+    debugPrint('[ERROR RESPONSE REPOSITORY]\n ${failure.toString()}');
   }
 }
