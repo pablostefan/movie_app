@@ -17,7 +17,7 @@ class SearchTextFieldWidget extends StatelessWidget {
                 filled: true,
                 border: OutlineInputBorder(
                     borderSide: BorderSide.none, borderRadius: BorderRadius.circular(AppDimens.micro)),
-                fillColor: AppColors.primaryGray,
+                fillColor: AppColors.secondaryGray,
                 hintText: 'Buscar filmes')));
   }
 }

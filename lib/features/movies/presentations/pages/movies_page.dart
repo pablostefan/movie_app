@@ -20,7 +20,7 @@ class _MoviesPageState extends State<MoviesPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-            backgroundColor: AppColors.secondaryGray,
+            backgroundColor: AppColors.primaryGray,
             title: const Text('Filmes trending'),
             centerTitle: false,
             actions: [
@@ -31,21 +31,17 @@ class _MoviesPageState extends State<MoviesPage> {
                   icon: const Icon(Icons.search))
             ]),
         backgroundColor: AppColors.monoWhite,
-        body: Column(children: [
-          Expanded(
-              child: ListenableBuilder(
-                  listenable: _controller,
-                  builder: (_, __) {
-                    return ListView.separated(
-                        shrinkWrap: true,
-                        padding: const EdgeInsets.symmetric(horizontal: AppDimens.xxxs),
-                        controller: _controller.scrollController,
-                        itemCount: _controller.movies.length,
-                        separatorBuilder: (_, __) => const SizedBox(height: AppDimens.xxxs),
-                        itemBuilder: (_, index) {
-                          return MovieCardWidget(movie: _controller.movies.elementAt(index));
-                        });
-                  }))
-        ]));
+        body: ListenableBuilder(
+            listenable: _controller,
+            builder: (_, __) {
+              return ListView.separated(
+                  padding: const EdgeInsets.all(AppDimens.xxxs),
+                  controller: _controller.scrollController,
+                  itemCount: _controller.movies.length,
+                  separatorBuilder: (_, __) => const SizedBox(height: AppDimens.xxxs),
+                  itemBuilder: (_, index) {
+                    return MovieCardWidget(movie: _controller.movies.elementAt(index));
+                  });
+            }));
   }
 }

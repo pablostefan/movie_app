@@ -16,7 +16,7 @@ class MovieCardWidget extends StatelessWidget {
 
   List<BoxShadow> _boxShadow(double blurRadius) {
     return [
-      BoxShadow(color: AppColors.tertiaryGray, offset: const Offset(3, 3), blurRadius: blurRadius, spreadRadius: 1),
+      BoxShadow(color: AppColors.quaternaryGray, offset: const Offset(3, 3), blurRadius: blurRadius, spreadRadius: 1),
       BoxShadow(color: AppColors.monoWhite, offset: const Offset(-3, -3), blurRadius: blurRadius, spreadRadius: 1),
     ];
   }

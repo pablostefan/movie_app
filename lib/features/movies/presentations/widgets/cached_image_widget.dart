@@ -18,8 +18,8 @@ class CachedImageWidget extends StatelessWidget {
             height: AppDimens.xxxl,
             imageUrl: imageUrl,
             placeholder: (context, url) => Shimmer.fromColors(
-                baseColor: AppColors.primaryGray,
-                highlightColor: AppColors.secondaryGray,
+                baseColor: AppColors.secondaryGray,
+                highlightColor: AppColors.tertiaryGray,
                 child: Container(color: AppColors.monoWhite, width: AppDimens.xxl, height: AppDimens.xxxl)),
             errorWidget: (context, url, error) => Image.asset(Images.tmdb.path)));
   }
