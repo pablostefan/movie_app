@@ -1,16 +1,98 @@
-# movie_app
+# Movie App
 
-Offline Cache using the Decorator Design Pattern
+Este é um aplicativo de filmes construído com Flutter, utilizando arquitetura modular e Clean
+Architecture.
+O aplicativo permite que os usuários visualizem, pesquisem e obtenham informações sobre filmes por
+meio de uma interface amigável.
 
-## Getting Started
+## Estrutura do Projeto
 
-This project is a starting point for a Flutter application.
+O projeto segue uma estrutura organizada em camadas, visando escalabilidade, manutenção e facilidade
+de testes.
+As principais pastas e componentes são:
 
-A few resources to get you started if this is your first Flutter project:
+### lib
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- **app**: Contém o `AppWidget`, que é o ponto de entrada do aplicativo.
+- **core**: Responsável por recursos compartilhados em todo o projeto, incluindo:
+    - **infra**:
+        - `local_storage`: Serviços de armazenamento local.
+        - `network`: Informações e serviços relacionados à conectividade de rede.
+        - `http`: Serviço HTTP para interações de rede.
+    - **utils**: Utilitários de uso geral, como debounce e single execution helpers.
+    - **error**: Classes e interfaces para o tratamento de erros e falhas.
+    - **injection**: Configuração de injeção de dependência.
+- **features**: Contém o módulo de filmes. Está organizado em três camadas principais:
+    - **Apresentação (`presentation`)**: Inclui páginas, controladores e widgets.
+    - **Dados (`data`)**: Camada de dados com fontes de dados locais e remotos e mapeamento para
+      DTOs.
+    - **Domínio (`domain`)**: Inclui as entidades e os casos de uso.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Funcionalidades
+
+- **Listagem de Filmes**: Exibe uma lista de filmes com informações como título, gênero, avaliação e
+  imagem.
+- **Pesquisa de Filmes**: Permite ao usuário pesquisar filmes pelo título.
+- **Cache Offline usando Decorator Pattern**: Implementação de cache para operações offline,
+  utilizando o Decorator Pattern,
+  que permite armazenar e recuperar dados locais quando não há conexão com a internet,
+  proporcionando uma experiência de
+  usuário contínua.
+
+## Tecnologias Utilizadas
+
+- **Flutter**: Para o desenvolvimento de interfaces de usuário nativas.
+- **Dio**: Gerenciamento de requisições HTTP.
+- **Shared Preferences**: Armazenamento local de dados leves.
+- **Arquitetura Modular e Clean Architecture**: Estruturação do código em camadas de forma
+  independente e modular.
+
+## Instalação e Execução
+
+1. **Clone o repositório**:
+   ```bash
+   git clone https://github.com/seu_usuario/seu_repositorio.git
+   ```
+
+2. **Navegue até o diretório do projeto**:
+   ```bash
+   cd movie_app
+   ```
+
+3. **Instale as dependências**:
+   ```bash
+   flutter pub get
+   ```
+
+4. **Execute o aplicativo**:
+   ```bash
+   flutter run
+   ```
+
+## Estrutura de Pastas
+
+```plaintext
+lib/
+├── app/                         # Ponto de entrada do aplicativo
+├── core/                        # Recursos compartilhados e infraestrutura
+│   ├── error/                   # Tratamento de erros e falhas
+│   ├── infra/
+│   │   ├── local_storage/       # Armazenamento local
+│   │   ├── network/             # Conectividade de rede
+│   │   └── http/                # Serviços HTTP
+│   ├── utils/                   # Utilitários diversos
+│   └── injection/               # Injeção de dependências
+└── features/
+    └── movies/                  # Módulo de filmes
+        ├── data/                # Camada de dados
+        ├── domain/              # Camada de domínio
+        └── presentation/        # Camada de apresentação
+```
+
+## Contribuição
+
+1. Faça um fork do projeto
+2. Crie uma branch para sua feature (`git checkout -b feature/nova-feature`)
+3. Commit suas mudanças (`git commit -am 'Adiciona nova feature'`)
+4. Envie para o branch (`git push origin feature/nova-feature`)
+5. Crie um novo Pull Request
