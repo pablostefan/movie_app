@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:movie_app/features/movies/presentations/controllers/movies_controller.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:movie_app/features/movies/presentations/pages/search_page.dart';
 
 class MoviesPage extends StatefulWidget {
   const MoviesPage({super.key});
@@ -20,10 +20,9 @@ class _MoviesPageState extends State<MoviesPage> {
         body: Column(children: [
           TextButton(
               onPressed: () async {
-                final sharedPreferences = await SharedPreferences.getInstance();
-                await sharedPreferences.clear();
+                Navigator.of(context).push(MaterialPageRoute(builder: (_) => const SearchPage()));
               },
-              child: const Text('Clear')),
+              child: const Text('Search')),
           Expanded(
               child: ListenableBuilder(
                   listenable: _controller,
