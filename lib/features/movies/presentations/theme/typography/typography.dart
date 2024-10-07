@@ -5,13 +5,32 @@ import 'package:movie_app/features/movies/presentations/theme/typography/font_we
 import 'package:movie_app/features/movies/presentations/theme/typography/line_height.dart';
 
 extension TypographyExtension on Text {
+  Text bodyExtraSmallMedium({TextStyle? style}) {
+    TextStyle defaultStyle = _buildTextStyle(
+        fontSize: TypographyFontSize.extraSmall,
+        fontWeight: TypographyFontWeight.medium,
+        height: TypographyLineHeight.body,
+        mergeStyle: style);
+
+    return _applyTextStyle(defaultStyle);
+  }
+
   Text bodySmallMedium({TextStyle? style}) {
     TextStyle defaultStyle = _buildTextStyle(
-      fontSize: TypographyFontSize.small,
-      fontWeight: TypographyFontWeight.medium,
-      height: TypographyLineHeight.body,
-      mergeStyle: style,
-    );
+        fontSize: TypographyFontSize.small,
+        fontWeight: TypographyFontWeight.medium,
+        height: TypographyLineHeight.body,
+        mergeStyle: style);
+
+    return _applyTextStyle(defaultStyle);
+  }
+
+  Text titleBaseBold({TextStyle? style}) {
+    TextStyle defaultStyle = _buildTextStyle(
+        fontSize: TypographyFontSize.base,
+        fontWeight: TypographyFontWeight.bold,
+        height: TypographyLineHeight.title,
+        mergeStyle: style);
 
     return _applyTextStyle(defaultStyle);
   }

@@ -9,4 +9,9 @@ abstract class AppColors {
   static const Color success = Colors.green;
   static const Color monoBlack = Colors.black;
   static const Color monoWhite = Colors.white;
+  static const Color starColor = Colors.amber;
+
+  static Color primaryGray = Colors.grey.shade200;
+  static Color secondaryGray = Colors.grey.shade300;
+  static Color tertiaryGray = Colors.grey.shade500;
 }

@@ -12,5 +12,6 @@ abstract class AppDimens {
   static const double md = 48;
   static const double lg = 56;
   static const double xl = 64;
-  static const double xxl = 80;
+  static const double xxl = 100;
+  static const double xxxl = 150;
 }
