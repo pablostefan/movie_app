@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:movie_app/core/error/base_failure.dart';
-import 'package:movie_app/core/network/network_info.dart';
+import 'package:movie_app/core/infra/network/network_info.dart';
 import 'package:movie_app/core/utils/debounce_utils.dart';
 import 'package:movie_app/features/movies/domain/entities/movie_entity.dart';
 import 'package:movie_app/features/movies/domain/entities/the_movie_db_entity.dart';
@@ -46,6 +46,8 @@ class SearchMoviesController with ChangeNotifier {
     isLoading.value = false;
   }
 
+  Future<void> _searchMovies() async => Debounce.call(_searchMoviesRequest);
+
   Future<void> _searchMoviesRequest() async {
     var result = await _movieUseCase.getSearchMovies(page: 1, query: searchController.text);
     result.fold(_handleError, _handleSearchSuccess);
@@ -55,8 +57,6 @@ class SearchMoviesController with ChangeNotifier {
     var result = await _movieUseCase.getSearchMovies(page: _nextPage, query: searchController.text);
     result.fold(_handleError, _handleSuccess);
   }
-
-  Future<void> _searchMovies() async => Debounce.call(_searchMoviesRequest);
 
   void _handleSearchSuccess(TheMovieDbEntity success) {
     movieData = success;

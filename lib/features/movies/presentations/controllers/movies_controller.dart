@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:movie_app/core/error/base_failure.dart';
-import 'package:movie_app/core/network/network_info.dart';
+import 'package:movie_app/core/infra/network/network_info.dart';
 import 'package:movie_app/features/movies/domain/entities/movie_entity.dart';
 import 'package:movie_app/features/movies/domain/entities/the_movie_db_entity.dart';
 import 'package:movie_app/features/movies/domain/usecases/movie_usecase.dart';
@@ -14,6 +14,7 @@ import 'package:oktoast/oktoast.dart';
 class MoviesController with ChangeNotifier {
   final MoviesUseCase _movieUseCase;
   final NetworkInfo _networkInfo;
+
   late final PagedScrollController scrollController;
   late final StreamSubscription<bool> _connectivitySubscription;
 
