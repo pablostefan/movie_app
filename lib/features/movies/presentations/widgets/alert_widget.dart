@@ -1,15 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:movie_app/core/error/base_failure.dart';
 import 'package:movie_app/features/movies/presentations/theme/app_colors.dart';
 import 'package:movie_app/features/movies/presentations/theme/app_dimens.dart';
 import 'package:movie_app/features/movies/presentations/theme/app_opacity.dart';
 import 'package:movie_app/features/movies/presentations/theme/typography/typography.dart';
 import 'package:oktoast/oktoast.dart';
 
-class AlertWidget extends StatelessWidget {
-  final BaseFailure error;
+enum AlertType {
+  error._(AppColors.error, Icons.error),
+  alert._(AppColors.alert, Icons.warning),
+  success._(AppColors.success, Icons.check_circle);
 
-  const AlertWidget({super.key, required this.error});
+  final Color color;
+  final IconData icon;
+
+  const AlertType._(this.color, this.icon);
+}
+
+class AlertWidget extends StatelessWidget {
+  final String message;
+  final AlertType type;
+
+  const AlertWidget({super.key, required this.message, this.type = AlertType.error});
 
   @override
   Widget build(BuildContext context) {
@@ -22,20 +33,18 @@ class AlertWidget extends StatelessWidget {
                 width: double.infinity,
                 height: AppDimens.sm,
                 padding: const EdgeInsets.symmetric(horizontal: AppDimens.xxxs),
-                decoration: BoxDecoration(
-                    color: AppColors.error,
-                    borderRadius: BorderRadius.circular(AppDimens.nano),
-                    boxShadow: [
-                      BoxShadow(
-                          color: AppColors.monoBlack.withOpacity(AppOpacity.oneThird),
-                          offset: const Offset(AppDimens.atto, AppDimens.atto),
-                          blurRadius: AppDimens.femto)
-                    ]),
+                decoration:
+                    BoxDecoration(color: type.color, borderRadius: BorderRadius.circular(AppDimens.nano), boxShadow: [
+                  BoxShadow(
+                      color: AppColors.monoBlack.withOpacity(AppOpacity.oneThird),
+                      offset: const Offset(AppDimens.atto, AppDimens.atto),
+                      blurRadius: AppDimens.femto)
+                ]),
                 child: Row(children: [
-                  Icon(Icons.error, color: AppColors.monoWhite),
+                  Icon(type.icon, color: AppColors.monoWhite),
                   Padding(
                       padding: const EdgeInsets.only(left: AppDimens.nano),
-                      child: Text(error.message).bodySmallMedium().color(AppColors.monoWhite))
+                      child: Text(message).bodySmallMedium().color(AppColors.monoWhite))
                 ]))));
   }
 }

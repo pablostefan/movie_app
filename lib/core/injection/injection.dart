@@ -1,9 +1,12 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:movie_app/core/infra/http/dio_http_service_imp.dart';
 import 'package:movie_app/core/infra/http/http_service.dart';
 import 'package:movie_app/core/infra/local_storage/local_storage_service.dart';
 import 'package:movie_app/core/infra/local_storage/shared_preferences_local_storage_service_imp.dart';
+import 'package:movie_app/core/network/network_info.dart';
+import 'package:movie_app/core/network/network_info_impl.dart';
 import 'package:movie_app/core/utils/api_utils.dart';
 import 'package:movie_app/features/movies/data/datasources/local/movies_local_datasource_decorator_imp.dart';
 import 'package:movie_app/features/movies/data/datasources/movies_datasource.dart';
@@ -22,6 +25,8 @@ class Injection {
     getIt.registerLazySingleton<Dio>(() => Dio(BaseOptions(baseUrl: API.baseUrl, headers: API.headers)));
     getIt.registerLazySingleton<HttpService>(() => DioHttpServiceImp(getIt()));
     getIt.registerLazySingleton<LocalStorageService>(() => SharedPreferencesLocalStorageService());
+    getIt.registerLazySingleton<Connectivity>(() => Connectivity());
+    getIt.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(getIt()));
 
     // datasources
     getIt.registerLazySingleton<MoviesDataSource>(
@@ -34,7 +39,7 @@ class Injection {
     getIt.registerLazySingleton<MoviesUseCase>(() => MoviesUseCaseImp(getIt()));
 
     // controllers
-    getIt.registerLazySingleton<MoviesController>(() => MoviesController(getIt()));
+    getIt.registerLazySingleton<MoviesController>(() => MoviesController(getIt(), getIt()));
     getIt.registerLazySingleton<SearchMoviesController>(() => SearchMoviesController(getIt()));
   }
 }

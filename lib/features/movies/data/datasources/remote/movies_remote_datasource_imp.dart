@@ -15,7 +15,7 @@ class MoviesRemoteDatasourceImp extends MoviesDataSource {
   Future<TheMovieDbEntity> getTrendingMovies({required int page}) async {
     try {
       var queryParameters = {'language': 'pt-BR', 'page': page.toString()};
-      var result = await _httpService.get("", queryParameters: queryParameters);
+      var result = await _httpService.get(API.trendingMovies, queryParameters: queryParameters);
       return TheMovieDbDto.fromJson(result.data);
     } on DioException catch (e) {
       throw NetworkFailure.fromDioException(e);
