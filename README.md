@@ -64,10 +64,22 @@ As principais pastas e componentes são:
    flutter pub get
    ```
 
-4. **Execute o aplicativo**:
-   ```bash
-   flutter run --dart-define-from-file=.env
-   ```
+4. **Configuração do Ambiente**:
+    - Crie um arquivo `.env` na raiz do projeto e adicione as variáveis de ambiente necessárias,
+      como tokens e chaves de API.
+    - Exemplo de arquivo `.env`:
+       ```plaintext
+        BEARER_TOKEN=eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIwNzhlNmIxODMwODQ3MmMxMmQ2YWUwNDc5MTliY2RiZiIsIm5iZiI6MTcyODA5NTY0OC4zMTA1NDYsInN1YiI6IjY0NTEzZDlhNDM1MDExMDBlYTNhMTk1ZiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.J2Gju5G6gE0_Twm-hVIpwGQxydd-utKgFlzV9rPYTZE
+        BASE_URL=https://api.themoviedb.org/3
+        TRENDING_MOVIES_URL=/trending/movie/week
+        SEARCH_MOVIES_URL=/search/movie
+        IMAGE_URL=https://image.tmdb.org/t/p/w500
+        ```
+
+5. **Execute o aplicativo com o arquivo `.env`**:
+    ```bash
+    flutter run --dart-define-from-file=.env
+    ```
 
 > **Nota**: O comando `--dart-define-from-file=.env` é necessário para carregar as variáveis de
 > ambiente configuradas no arquivo `.env`.
