@@ -44,7 +44,6 @@ class SearchMoviesController with ChangeNotifier {
 
   void _validateNetWork() async {
     _setConnection(await _networkInfo.hasConnectivity);
-    _showConnectionStatus();
   }
 
   Future<void> _initializeSearchMovies() async {

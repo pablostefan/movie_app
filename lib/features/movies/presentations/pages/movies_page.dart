@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:movie_app/features/movies/presentations/controllers/movies_controller.dart';
 import 'package:movie_app/features/movies/presentations/pages/search_page.dart';
 import 'package:movie_app/features/movies/presentations/theme/app_colors.dart';
@@ -34,14 +35,16 @@ class _MoviesPageState extends State<MoviesPage> {
         body: ListenableBuilder(
             listenable: _controller,
             builder: (_, __) {
-              return ListView.separated(
-                  padding: const EdgeInsets.all(AppDimens.xxxs),
-                  controller: _controller.scrollController,
-                  itemCount: _controller.movies.length,
-                  separatorBuilder: (_, __) => const SizedBox(height: AppDimens.xxxs),
-                  itemBuilder: (_, index) {
-                    return MovieCardWidget(movie: _controller.movies.elementAt(index));
-                  });
+              return ModalProgressHUD(
+                  inAsyncCall: _controller.isLoading.value,
+                  child: ListView.separated(
+                      padding: const EdgeInsets.all(AppDimens.xxs),
+                      controller: _controller.scrollController,
+                      itemCount: _controller.movies.length,
+                      separatorBuilder: (_, __) => const SizedBox(height: AppDimens.xxs),
+                      itemBuilder: (_, index) {
+                        return MovieCardWidget(movie: _controller.movies.elementAt(index));
+                      }));
             }));
   }
 }

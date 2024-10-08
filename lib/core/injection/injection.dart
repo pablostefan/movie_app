@@ -39,7 +39,7 @@ class Injection {
     getIt.registerLazySingleton<MoviesUseCase>(() => MoviesUseCaseImp(getIt()));
 
     // controllers
-    getIt.registerLazySingleton<MoviesController>(() => MoviesController(getIt(), getIt()));
-    getIt.registerLazySingleton<SearchMoviesController>(() => SearchMoviesController(getIt(), getIt()));
+    getIt.registerFactory<MoviesController>(() => MoviesController(getIt(), getIt()));
+    getIt.registerFactory<SearchMoviesController>(() => SearchMoviesController(getIt(), getIt()));
   }
 }
