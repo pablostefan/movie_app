@@ -105,6 +105,26 @@ lib/
         └── presentation/        # Camada de apresentação
 ```
 
+## Testes de Unidade
+
+O projeto inclui testes de unidade para validar a funcionalidade de partes principais da aplicação.
+Esses testes ajudam a garantir a estabilidade e a precisão dos componentes, como as fontes de dados
+locais e remotas. Os principais arquivos de teste incluem:
+
+- **local_movies_datasource_test.dart**: Contém testes para a camada de dados local, verificando a
+  persistência e recuperação dos dados de filmes em armazenamento local.
+- **remote_movies_datasource_test.dart**: Valida o comportamento das requisições remotas, garantindo
+  que os dados sejam corretamente buscados da API.
+
+Para executar os testes de unidade, utilize o comando abaixo:
+
+```bash
+flutter test
+```
+
+Esses testes permitem uma verificação rápida das funcionalidades principais e ajudam a identificar
+possíveis problemas antes do deploy.
+
 ## Contribuição
 
 1. Faça um fork do projeto
@@ -112,4 +132,3 @@ lib/
 3. Commit suas mudanças (`git commit -am 'Adiciona nova feature'`)
 4. Envie para o branch (`git push origin feature/nova-feature`)
 5. Crie um novo Pull Request
-
