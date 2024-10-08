@@ -66,8 +66,11 @@ As principais pastas e componentes são:
 
 4. **Execute o aplicativo**:
    ```bash
-   flutter run
+   flutter run --dart-define-from-file=.env
    ```
+
+> **Nota**: O comando `--dart-define-from-file=.env` é necessário para carregar as variáveis de
+> ambiente configuradas no arquivo `.env`.
 
 ## Estrutura de Pastas
 
@@ -96,3 +99,4 @@ lib/
 3. Commit suas mudanças (`git commit -am 'Adiciona nova feature'`)
 4. Envie para o branch (`git push origin feature/nova-feature`)
 5. Crie um novo Pull Request
+
