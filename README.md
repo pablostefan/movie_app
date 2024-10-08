@@ -51,7 +51,7 @@ As principais pastas e componentes são:
 
 1. **Clone o repositório**:
    ```bash
-   git clone https://github.com/seu_usuario/seu_repositorio.git
+   git clone https://github.com/pablostefan/movie_app.git
    ```
 
 2. **Navegue até o diretório do projeto**:
