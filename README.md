@@ -68,6 +68,7 @@ As principais pastas e componentes são:
     - Crie um arquivo `.env` na raiz do projeto e adicione as variáveis de ambiente necessárias,
       como tokens e chaves de API.
     - Exemplo de arquivo `.env`:
+   
        ```plaintext
         BEARER_TOKEN=eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIwNzhlNmIxODMwODQ3MmMxMmQ2YWUwNDc5MTliY2RiZiIsIm5iZiI6MTcyODA5NTY0OC4zMTA1NDYsInN1YiI6IjY0NTEzZDlhNDM1MDExMDBlYTNhMTk1ZiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.J2Gju5G6gE0_Twm-hVIpwGQxydd-utKgFlzV9rPYTZE
         BASE_URL=https://api.themoviedb.org/3
