@@ -7,7 +7,7 @@ class SharedPreferencesLocalStorageService implements LocalStorageService {
   SharedPreferencesLocalStorageService();
 
   @override
-  Future<Map<String, dynamic>?> get(String key) async {
+  Future<Map<String, dynamic>?> getData(String key) async {
     try {
       final sharedPreferences = await SharedPreferences.getInstance();
       final String? data = sharedPreferences.getString(key);
@@ -18,15 +18,33 @@ class SharedPreferencesLocalStorageService implements LocalStorageService {
   }
 
   @override
-  Future<bool> put(String key, Map<String, dynamic> value) async {
-    final sharedPreferences = await SharedPreferences.getInstance();
-    final String data = jsonEncode(value);
-    return await sharedPreferences.setString(key, data);
+  Future<String?> getString(String key) async {
+    try {
+      final sharedPreferences = await SharedPreferences.getInstance();
+      return sharedPreferences.getString(key);
+    } catch (e) {
+      return null;
+    }
   }
 
   @override
-  Future<bool> clear() async {
-    final sharedPreferences = await SharedPreferences.getInstance();
-    return await sharedPreferences.clear();
+  Future<bool> putData(String key, Map<String, dynamic> value) async {
+    try {
+      final sharedPreferences = await SharedPreferences.getInstance();
+      final String data = jsonEncode(value);
+      return await sharedPreferences.setString(key, data);
+    } catch (e) {
+      return false;
+    }
+  }
+
+  @override
+  Future<bool> putString(String key, String value) async {
+    try {
+      final sharedPreferences = await SharedPreferences.getInstance();
+      return await sharedPreferences.setString(key, value);
+    } catch (e) {
+      return false;
+    }
   }
 }

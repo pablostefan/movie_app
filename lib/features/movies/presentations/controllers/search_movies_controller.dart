@@ -22,12 +22,17 @@ class SearchMoviesController with ChangeNotifier {
   TheMovieDbEntity movieData = TheMovieDbEntity.empty();
   Set<MovieEntity> movies = {};
   TextEditingController searchController = TextEditingController();
+  ValueNotifier<bool> isConnected = ValueNotifier(true);
 
   SearchMoviesController(this._movieUseCase, this._networkInfo) {
-    scrollController = PagedScrollController(onLoadMore: _loadMoreMovies);
+    scrollController = PagedScrollController(onLoadMore: _loadMoreSearchMovies);
     _connectivitySubscription = _networkInfo.onConnectivityChanged.listen(_onNetworkChange);
     searchController.addListener(_searchMovies);
+    _initializeSearchMovies();
+    _validateNetWork();
   }
+
+  int get _nextPage => movieData.page + 1;
 
   @override
   void dispose() {
@@ -37,12 +42,15 @@ class SearchMoviesController with ChangeNotifier {
     super.dispose();
   }
 
-  int get _nextPage => movieData.page + 1;
+  void _validateNetWork() async {
+    _setConnection(await _networkInfo.hasConnectivity);
+    _showConnectionStatus();
+  }
 
-  Future<void> _initializeMovies() async {
+  Future<void> _initializeSearchMovies() async {
     if (isLoading.value) return;
     isLoading.value = true;
-    await _loadMoreMovies();
+    await _searchMoviesRequest();
     isLoading.value = false;
   }
 
@@ -53,9 +61,9 @@ class SearchMoviesController with ChangeNotifier {
     result.fold(_handleError, _handleSearchSuccess);
   }
 
-  Future<void> _loadMoreMovies() async {
+  Future<void> _loadMoreSearchMovies() async {
     var result = await _movieUseCase.getSearchMovies(page: _nextPage, query: searchController.text);
-    result.fold(_handleError, _handleSuccess);
+    result.fold(_handleError, _handleLoadMoreSuccess);
   }
 
   void _handleSearchSuccess(TheMovieDbEntity success) {
@@ -64,7 +72,7 @@ class SearchMoviesController with ChangeNotifier {
     notifyListeners();
   }
 
-  void _handleSuccess(TheMovieDbEntity success) {
+  void _handleLoadMoreSuccess(TheMovieDbEntity success) {
     movieData = success;
     movies.addAll(success.results);
     notifyListeners();
@@ -77,21 +85,26 @@ class SearchMoviesController with ChangeNotifier {
   }
 
   void _onNetworkChange(bool isConnected) {
-    _showConnectionStatus(isConnected);
-    if (isConnected) _attemptDataLoad();
+    _setConnection(isConnected);
+    _showConnectionStatus();
+    _attemptDataLoad(isConnected);
   }
 
-  void _showConnectionStatus(bool isConnected) {
-    final message = isConnected ? 'Conectado' : 'Desconectado';
-    final type = isConnected ? AlertType.success : AlertType.error;
+  void _showConnectionStatus() {
+    final message = isConnected.value ? 'Conectado' : 'Desconectado';
+    final type = isConnected.value ? AlertType.success : AlertType.error;
     _showAlert(message, type: type);
+  }
+
+  void _setConnection(bool isConnected) {
+    this.isConnected.value = isConnected;
   }
 
   void _showAlert(String message, {AlertType type = AlertType.error}) {
     showToastWidget(AlertWidget(message: message, type: type));
   }
 
-  void _attemptDataLoad() {
-    if (!isLoading.value) _initializeMovies();
+  void _attemptDataLoad(bool isConnected) {
+    if (!isLoading.value && isConnected) _initializeSearchMovies();
   }
 }

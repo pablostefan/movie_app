@@ -9,14 +9,19 @@ class MoviesLocalDataSourceDecoratorImp extends MoviesDataSourceDecorator {
 
   MoviesLocalDataSourceDecoratorImp(super.moviesDataSource, this._localStorageService);
 
+  static const String trendingMoviesCacheKey = "trending_movies";
+  static const String searchMoviesCacheKey = "search_movies";
+  static const String queryCacheKey = "search_query";
+
   @override
   Future<TheMovieDbEntity> getTrendingMovies({required int page}) async {
+    final String cacheKey = "${trendingMoviesCacheKey}_$page";
     try {
       final movieDbEntity = await super.getTrendingMovies(page: page);
-      await _localStorageService.put("trending_movies_$page", movieDbEntity.toJson());
+      await _localStorageService.putData(cacheKey, movieDbEntity.toJson());
       return movieDbEntity;
     } on NetworkFailure {
-      return await _getInCache("trending_movies_$page");
+      return await _getInCache(cacheKey);
     } catch (e, s) {
       throw CacheDataFailure(message: "Não foi possível buscar os dados", stackTrace: s);
     }
@@ -26,10 +31,16 @@ class MoviesLocalDataSourceDecoratorImp extends MoviesDataSourceDecorator {
   Future<TheMovieDbEntity> getSearchMovies({required int page, required String query}) async {
     try {
       final movieDbEntity = await super.getSearchMovies(page: page, query: query);
-      await _localStorageService.put("search_movies_$page", movieDbEntity.toJson());
+
+      Future.wait([
+        _localStorageService.putString(queryCacheKey, query),
+        _localStorageService.putData("${searchMoviesCacheKey}_${page}_$query", movieDbEntity.toJson()),
+      ]);
+
       return movieDbEntity;
     } on NetworkFailure {
-      return await _getInCache("search_movies_$page");
+      final cachedQuery = await _localStorageService.getString(queryCacheKey);
+      return await _getInCache("${searchMoviesCacheKey}_${page}_$cachedQuery");
     } catch (e, s) {
       throw CacheDataFailure(message: "Não foi possível buscar os dados", stackTrace: s);
     }
@@ -37,7 +48,7 @@ class MoviesLocalDataSourceDecoratorImp extends MoviesDataSourceDecorator {
 
   Future<TheMovieDbEntity> _getInCache(String key) async {
     try {
-      Map<String, dynamic>? data = await _localStorageService.get(key);
+      Map<String, dynamic>? data = await _localStorageService.getData(key);
       return TheMovieDbDto.fromJson(data!);
     } catch (e, s) {
       throw CacheDataFailure(message: "Nenhum dado disponível.", stackTrace: s);

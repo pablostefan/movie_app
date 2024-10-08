@@ -1,7 +1,9 @@
 abstract class LocalStorageService {
-  Future<Map<String, dynamic>?> get(String key);
+  Future<Map<String, dynamic>?> getData(String key);
 
-  Future<bool> put(String key, Map<String, dynamic> value);
+  Future<String?> getString(String key);
 
-  Future<bool> clear();
+  Future<bool> putData(String key, Map<String, dynamic> value);
+
+  Future<bool> putString(String key, String value);
 }

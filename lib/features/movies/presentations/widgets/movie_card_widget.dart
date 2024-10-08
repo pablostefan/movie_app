@@ -37,18 +37,16 @@ class MovieCardWidget extends StatelessWidget {
               child: Padding(
                   padding: const EdgeInsets.all(AppDimens.micro),
                   child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         AutoSizeText(movie.title, maxLines: 2, style: const Text("").titleBaseBold().style),
-                        Padding(
-                            padding: const EdgeInsets.symmetric(vertical: AppDimens.nano),
-                            child: Row(children: [
-                              Padding(
-                                  padding: const EdgeInsets.only(right: AppDimens.nano),
-                                  child: Text(movie.voteAverage.toStringAsFixed(1)).titleBaseBold()),
-                              StarRatingWidget(rating: movie.voteAverage)
-                            ])),
+                        Row(children: [
+                          Padding(
+                              padding: const EdgeInsets.only(right: AppDimens.nano),
+                              child: Text(movie.voteAverage.toStringAsFixed(1)).titleBaseBold()),
+                          StarRatingWidget(rating: movie.voteAverage)
+                        ]),
                         Wrap(
                             alignment: WrapAlignment.start,
                             spacing: AppDimens.pico,

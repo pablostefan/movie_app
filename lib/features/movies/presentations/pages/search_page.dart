@@ -22,7 +22,13 @@ class _SearchPageState extends State<SearchPage> {
         appBar: AppBar(title: const Text('Buscar filmes'), backgroundColor: AppColors.primaryGray),
         backgroundColor: AppColors.monoWhite,
         body: Column(children: [
-          SearchTextFieldWidget(controller: _controller.searchController),
+          Padding(
+              padding: const EdgeInsets.only(top: AppDimens.xxxs, right: AppDimens.xxxs, left: AppDimens.xxxs),
+              child: ValueListenableBuilder(
+                  valueListenable: _controller.isConnected,
+                  builder: (_, value, ___) {
+                    return SearchTextFieldWidget(controller: _controller.searchController, enabled: value);
+                  })),
           Expanded(
               child: ListenableBuilder(
                   listenable: _controller,
@@ -31,7 +37,8 @@ class _SearchPageState extends State<SearchPage> {
                         shrinkWrap: true,
                         controller: _controller.scrollController,
                         itemCount: _controller.movies.length,
-                        padding: const EdgeInsets.symmetric(horizontal: AppDimens.xxxs),
+                        padding:
+                            const EdgeInsets.fromLTRB(AppDimens.xxxs, AppDimens.xxxs, AppDimens.xxxs, AppDimens.sm),
                         separatorBuilder: (_, __) => const SizedBox(height: AppDimens.xxxs),
                         itemBuilder: (_, index) {
                           return MovieCardWidget(movie: _controller.movies.elementAt(index));
