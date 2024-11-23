@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:movie_app/features/movies/presentations/theme/app_colors.dart';
-import 'package:movie_app/features/movies/presentations/theme/typography/font_size.dart';
-import 'package:movie_app/features/movies/presentations/theme/typography/font_weight.dart';
-import 'package:movie_app/features/movies/presentations/theme/typography/line_height.dart';
+import 'package:movie_app/shared/theme/app_colors.dart';
+import 'package:movie_app/shared/theme/typography/font_size.dart';
+import 'package:movie_app/shared/theme/typography/font_weight.dart';
+import 'package:movie_app/shared/theme/typography/line_height.dart';
 
 extension TypographyExtension on Text {
   Text bodyExtraSmallMedium({TextStyle? style}) {

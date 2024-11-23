@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:movie_app/features/movies/presentations/theme/app_colors.dart';
-import 'package:movie_app/features/movies/presentations/theme/app_dimens.dart';
-import 'package:movie_app/features/movies/presentations/theme/app_opacity.dart';
-import 'package:movie_app/features/movies/presentations/theme/typography/typography.dart';
+import 'package:movie_app/shared/theme/app_colors.dart';
+import 'package:movie_app/shared/theme/app_dimens.dart';
+import 'package:movie_app/shared/theme/app_opacity.dart';
+import 'package:movie_app/shared/theme/typography/typography.dart';
 import 'package:oktoast/oktoast.dart';
 
 enum AlertType {

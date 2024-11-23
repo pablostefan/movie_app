@@ -3,9 +3,9 @@ import 'package:get_it/get_it.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:movie_app/features/movies/presentations/controllers/movies_controller.dart';
 import 'package:movie_app/features/movies/presentations/pages/search_page.dart';
-import 'package:movie_app/features/movies/presentations/theme/app_colors.dart';
-import 'package:movie_app/features/movies/presentations/theme/app_dimens.dart';
 import 'package:movie_app/features/movies/presentations/widgets/movie_card_widget.dart';
+import 'package:movie_app/shared/theme/app_colors.dart';
+import 'package:movie_app/shared/theme/app_dimens.dart';
 
 class MoviesPage extends StatefulWidget {
   const MoviesPage({super.key});

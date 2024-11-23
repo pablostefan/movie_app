@@ -1,8 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:movie_app/features/movies/presentations/theme/app_colors.dart';
-import 'package:movie_app/features/movies/presentations/theme/app_dimens.dart';
-import 'package:movie_app/features/movies/presentations/utils/images_utils.dart';
+import 'package:movie_app/shared/theme/app_colors.dart';
+import 'package:movie_app/shared/theme/app_dimens.dart';
+import 'package:movie_app/shared/utils/images_utils.dart';
 import 'package:shimmer/shimmer.dart';
 
 class CachedImageWidget extends StatelessWidget {

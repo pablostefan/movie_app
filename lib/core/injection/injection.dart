@@ -22,7 +22,12 @@ class Injection {
   static void init() {
     GetIt getIt = GetIt.instance;
     // core
-    getIt.registerLazySingleton<Dio>(() => Dio(BaseOptions(baseUrl: API.baseUrl, headers: API.headers)));
+    getIt.registerLazySingleton<Dio>(() => Dio(BaseOptions(
+        baseUrl: API.baseUrl,
+        headers: API.headers,
+        connectTimeout: const Duration(seconds: 10),
+        receiveTimeout: const Duration(seconds: 10))));
+
     getIt.registerLazySingleton<HttpService>(() => DioHttpServiceImp(getIt()));
     getIt.registerLazySingleton<LocalStorageService>(() => SharedPreferencesLocalStorageService());
     getIt.registerLazySingleton<Connectivity>(() => Connectivity());

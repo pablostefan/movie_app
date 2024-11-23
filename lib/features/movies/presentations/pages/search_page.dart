@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:movie_app/features/movies/presentations/controllers/search_movies_controller.dart';
-import 'package:movie_app/features/movies/presentations/theme/app_colors.dart';
-import 'package:movie_app/features/movies/presentations/theme/app_dimens.dart';
 import 'package:movie_app/features/movies/presentations/widgets/movie_card_widget.dart';
 import 'package:movie_app/features/movies/presentations/widgets/search_text_field_widget.dart';
+import 'package:movie_app/shared/theme/app_colors.dart';
+import 'package:movie_app/shared/theme/app_dimens.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({super.key});

@@ -2,12 +2,12 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:movie_app/core/utils/api_utils.dart';
 import 'package:movie_app/features/movies/domain/entities/movie_entity.dart';
-import 'package:movie_app/features/movies/presentations/theme/app_colors.dart';
-import 'package:movie_app/features/movies/presentations/theme/app_dimens.dart';
-import 'package:movie_app/features/movies/presentations/theme/typography/typography.dart';
-import 'package:movie_app/features/movies/presentations/utils/movie_genre_utils.dart';
 import 'package:movie_app/features/movies/presentations/widgets/cached_image_widget.dart';
 import 'package:movie_app/features/movies/presentations/widgets/star_rating_widget.dart';
+import 'package:movie_app/shared/theme/app_colors.dart';
+import 'package:movie_app/shared/theme/app_dimens.dart';
+import 'package:movie_app/shared/theme/typography/typography.dart';
+import 'package:movie_app/shared/utils/movie_genre_utils.dart';
 
 class MovieCardWidget extends StatelessWidget {
   final MovieEntity movie;

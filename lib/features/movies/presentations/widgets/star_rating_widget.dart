@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:movie_app/features/movies/presentations/theme/app_colors.dart';
-import 'package:movie_app/features/movies/presentations/theme/app_dimens.dart';
+import 'package:movie_app/shared/theme/app_colors.dart';
+import 'package:movie_app/shared/theme/app_dimens.dart';
 
 class StarRatingWidget extends StatelessWidget {
   final double rating;
